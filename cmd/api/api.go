@@ -3,6 +3,7 @@ package main
 // Gin boilerplate with ping endpoint
 
 import (
+	"bytes"
 	"fmt"
 	"log"
 	"net/http"
@@ -42,7 +43,7 @@ func main() {
 	})
 
 	// Create a new cluster
-	r.POST("/cluster", func(c *gin.Context) {
+	r.POST("/cluster/:name", func(c *gin.Context) {
 		c.JSON(http.StatusNotImplemented, nil)
 	})
 
@@ -61,8 +62,15 @@ func ping(name string) (string, error) {
 	// Launch a ping command
 	log.Printf("Pinging %s\n", name)
 	ec := exec.Command("ping", "-c", "3", name)
+
+	// Create buffers to capture standard output and standard error
+	var outBuf, errBuf bytes.Buffer
+	ec.Stdout = &outBuf
+	ec.Stderr = &errBuf
+
+	// Run the command
 	if err := ec.Run(); err != nil {
-		return "fail", fmt.Errorf("ERROR running ping: %s", err)
+		return "fail", fmt.Errorf("ERROR running ping: %s\nOutput: %s\nError: %s", err, outBuf.String(), errBuf.String())
 	}
 
 	// and return the response

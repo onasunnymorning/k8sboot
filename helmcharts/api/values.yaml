@@ -71,14 +71,14 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
-livenessProbe:
-  httpGet:
-    path: /ping
-    port: http
-readinessProbe:
-  httpGet:
-    path: /ping
-    port: http
+livenessProbe: null
+  # httpGet:
+  #   path: /ping
+  #   port: http
+readinessProbe: null
+  # httpGet:
+  #   path: /ping
+  #   port: http
 
 autoscaling:
   enabled: false
