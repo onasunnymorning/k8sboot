@@ -62,7 +62,7 @@ func ping(name string) (string, error) {
 	log.Printf("Pinging %s\n", name)
 	ec := exec.Command("ping", "-c", "3", name)
 	if err := ec.Run(); err != nil {
-		return "fail", fmt.Errorf("ERROR running escrowAnalyzer: %s", err)
+		return "fail", fmt.Errorf("ERROR running ping: %s", err)
 	}
 
 	// and return the response
