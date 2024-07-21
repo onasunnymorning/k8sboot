@@ -19,6 +19,12 @@ func main() {
 			"message": "pong",
 		})
 	})
+	// Version
+	r.GET("/version", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"version": "v0.0.1",
+		})
+	})
 
 	// Get the status of the cluster
 	r.GET("/cluster/:name", func(c *gin.Context) {
